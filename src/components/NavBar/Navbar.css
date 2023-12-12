@@ -1,0 +1,176 @@
+.navbar-container {
+  overflow: auto;
+  position: fixed;
+  z-index: 10000;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 70px;
+  display: block;
+  background-color: #ffffff;
+}
+
+.navbar {
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  min-width: 1024px;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.nav-appName {
+  text-decoration: none;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 30px;
+  font-weight: 800;
+  padding-left: 30px;
+  padding-right: 30px;
+  cursor: pointer;
+  width: 24%;
+}
+
+.nav-menu {
+  text-align: center;
+  display: flex;
+  cursor: pointer;
+}
+.nav-cate {
+  float: left;
+  width: 65%;
+  display: block;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  cursor: pointer;
+}
+
+.menu-component {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 14px;
+  width: 16.66%;
+
+  overflow: hidden;
+  text-align: center;
+
+  /* effect */
+  z-index: 1;
+  position: relative;
+  color: black;
+  outline: none;
+  /* border: 1px solid #ff3e00; */
+  background-color: transparent;
+  overflow: hidden;
+  transition: color 0.3s ease-in-out;
+}
+.menu-item-name {
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  font-size: 16px;
+  display: flex;
+}
+
+.menu-component::before {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  inset: 0;
+  background-color: black;
+  transform-origin: center bottom;
+  transform: scaleY(0);
+  transition: transform 0.25s ease-in-out;
+}
+
+.menu-component:hover {
+  cursor: pointer;
+  color: #fff;
+}
+
+.menu-component:hover::before {
+  transform-origin: center top;
+  transform: scaleY(1);
+}
+
+.search-bar {
+  width: 100%;
+  max-width: 700px;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  backdrop-filter: blur(4px) saturate(180%);
+  background-color: #eeeeee;
+}
+
+.input-box {
+  height: 10px;
+}
+
+.search-bar input {
+  background: transparent;
+  display: flex;
+  border: 0;
+  background-color: #eeeeee;
+  padding: 20px;
+  font-size: 14px;
+  outline: none;
+  border-radius: 5px;
+}
+
+.search-bar button img {
+  width: 14px;
+}
+
+.search-bar button {
+  border: 0;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  background-color: #eeeeee;
+  cursor: pointer;
+}
+
+.nav-input {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  padding: 10px;
+  margin-left: 20px;
+  width: 28%;
+}
+
+.nav-icon {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  gap: 20px;
+
+  width: 50px;
+  width: 10%;
+}
+
+.icon {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+.user-icon {
+  position: relative;
+}
+.dropdown-menu {
+  position: absolute;
+  bottom: 0px;
+}

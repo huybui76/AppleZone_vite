@@ -1,0 +1,148 @@
+.dashboard_category-show-product {
+    width: 90%;
+    height: auto;
+    background-color: #fff;
+    margin-left: 50px;
+    margin-right: 50px;
+    
+}
+
+.dashboard_category-show--content {
+    position: relative;
+    width: 180px;
+    height: 235px;
+    background-color: #838181;
+    border-radius: 24px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.dashboard_category-show--content img {
+    width: 102px;
+}
+
+.dashboard_category-show--content h3 {
+    color: #fff;
+    position: absolute;
+    bottom: 5px;
+}
+
+.dashboard_category-add {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 80px 0 20px;
+}
+
+.dashboard_category-add button {
+    background-color: #696666;
+    color: #fff;
+    font-weight: 500;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.dashboard_category-show--content .button-container {
+    display: flex;
+    gap: 10px;
+}
+
+
+.dashboard_category-form {
+    margin-top: 50px;
+    margin-left: 100px;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    /* align-items: center; */
+}
+
+.dashboard_category-form a {
+    display: inline;
+    text-decoration: none;
+}
+
+.dashboard_category-form form {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboard_category-form form input {
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+}
+
+.dashboard_category-form-btn {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.dashboard_category-form-btn .success {
+    background-color: blue;
+}
+
+.dashboard_category-form button {
+    background-color: #3d3d3d;
+    color: #fff;
+    font-weight: 500;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.dashboard_category-form button:hover {
+    background-color: #2d2d2d;
+
+}
+
+.dashboard_category-title {
+    margin-left: 70px;
+}
+
+.delete_icon {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 35px;
+    height: 35px;
+    background-color: rgb(170, 158, 158);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+}
+.edit_icon {
+    position: absolute;
+    right: 60px;
+    top: 10px;
+    width: 35px;
+    height: 35px;
+    background-color: rgb(170, 158, 158);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+}
+
+.pre_image {
+    width: 200px;
+    height: 200px;
+    background-size: cover;
+}
+/* Add these styles to your CSS file or use inline styles in React */
+.action-icons-container {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+   
+}
+

@@ -1,0 +1,50 @@
+.custom-prev-arrow,
+.custom-next-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background-color: #ccc;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.custom-prev-arrow {
+    left: 20px;
+    background-image: url("../../assets/right-arrow.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    transform: rotate(180deg);
+    cursor: pointer;
+    background-size: 20px;
+}
+
+.custom-next-arrow {
+    right: 20px;
+    background-image: url('../../assets/right-arrow.png');
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    transition: background-color 0.5s ease, font-weight 0.3s ease;
+}
+
+.custom-prev-arrow:hover,
+.custom-next-arrow:hover {
+  transition: background-color 0.3s ease, font-weight 0.3s ease;
+}
+
+/* Thêm hover state */
+.custom-prev-arrow:hover {
+    background-color: #999;
+}
+
+.custom-next-arrow:hover {
+    background-color: #999;
+}

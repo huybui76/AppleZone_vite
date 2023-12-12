@@ -1,0 +1,102 @@
+.container_dashboard {
+    width: 100%;
+    height: auto;
+    background-color: #fff;
+    display: flex;
+    flex-direction: row;
+    
+}
+
+.container_dashboard-menu {
+    width: 15%;
+    background-color: aliceblue;
+   
+}
+
+.container_dashboard-menu a {
+    text-decoration: none;
+    color: #3E54AC;
+    display: block;
+    padding: 15px 0px 15px 35px;
+}
+
+.container_dashboard-menu .active {
+    background-color: #3E54AC;
+    color: #ECF2FF;
+}
+
+.container_dashboard-menu ul {
+    list-style: none;
+    padding: 0;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 500;
+}
+
+.container_dashboard-menu ul li {
+    padding: 15px 0px 15px 15px;
+}
+
+.container_dashboard-tab {
+    width: 85%;
+    background-color: #e5dfdf;
+}
+
+.dashboard_product {
+    margin: 50px 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+}
+
+.dashboard_product-add {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.dashboard_product-add button {
+    display: flex;
+    justify-content: flex-end;
+    background-color: #3d3d3d;
+    color: #fff;
+    font-weight: 500;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.dashboard_product-add a {
+    text-decoration: none;
+
+}
+
+.dashboard_product-list {
+    position: relative;
+}
+
+.dashboard_product-list table {
+    width: 100%;
+    background-color: #f1e8e8;
+    padding: 10px;
+    text-align: left;
+}
+
+.dashboard_product-list tr {
+    border: 1px solid red !important;
+}
+
+.dashboard_product-list tr:nth-child(1) {
+    background-color: rgb(125, 173, 127);
+}
+
+.dashboard_product-list tr th {
+    padding: 5px;
+}
+
+.dashboard_product-list tr img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
