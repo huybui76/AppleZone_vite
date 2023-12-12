@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 
 const ProductCard = (props) => {
   // Console log for debugging
-  console.log('Product Card Props:', props);
+  // console.log('Product Card Props:', props);
 
   return (
     <NavLink to={`/products/${props.productId}`} className="productCard">

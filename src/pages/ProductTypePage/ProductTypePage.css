@@ -1,5 +1,5 @@
 .product-page-container {
-  background-color: rgb(89, 89, 89);
+  /* background-color: rgb(89, 89, 89); */
   padding-bottom: 50px;
 }
 .product-page {
@@ -11,7 +11,7 @@
 .product {
   margin-top: 50px;
   padding-top: 50px;
-  background-color: rgb(89, 89, 89);
+  /* background-color: rgb(89, 89, 89); */
 }
 
 .product-image {

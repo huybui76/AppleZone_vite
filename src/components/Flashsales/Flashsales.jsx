@@ -19,10 +19,10 @@ const Flashsales = () => {
                             <CountdownTimer />
                         </div>
                     </div>
-                    <div className="buttons-flashsales">
+                    {/* <div className="buttons-flashsales">
                         <button className="left-button"></button>
                         <button className="right-button"></button>
-                    </div>
+                    </div> */}
                 </div>
                 <div className="menu-container">
 

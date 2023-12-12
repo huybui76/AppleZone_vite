@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import appleIcon from "../../assets/apple.jpg";
 import * as ProductService from "../../services/ProductService";
 import ProductCard from "../ProductCard/ProductCard";
-import Slider from "react-slick";
 import "./BoxSlides.css";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
-import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+import { Skeleton } from 'antd';
+import logo2 from '../../assets/logo2.svg';
 
 const BoxSlides = () => {
   const [products, setProducts] = useState({
@@ -49,7 +49,8 @@ const BoxSlides = () => {
 
     return products.map((product) => (
       <SwiperSlide key={product?._id} style={{ width: '292.5px' }}>
-        {product ? (
+        {
+          // product ? (
           <ProductCard
             key={product._id}
             productId={product._id}
@@ -61,11 +62,26 @@ const BoxSlides = () => {
             rating={product.rating}
             discount={product.discount}
           />
-        ) : (
-          <Skeleton height={390} width={292.5} />
-        )}
+          // ) : (
+          //   <Skeleton height={390} width={292.5} active />
+          // )
+        }
       </SwiperSlide>
     ));
+  };
+  const renderProductSlides = (category) => {
+    const productData = products[category.toLowerCase()];
+
+    if (productData && Array.isArray(productData) && productData.length > 0) {
+      return renderProductCards(productData);
+    } else {
+      // Render Skeleton for each slide if no data is available
+      return Array.from({ length: 4 }).map((_, index) => (
+        <SwiperSlide key={index} style={{ width: '292.5px' }}>
+          <Skeleton height={390} width={292.5} active />
+        </SwiperSlide>
+      ));
+    }
   };
 
   return (
@@ -73,7 +89,7 @@ const BoxSlides = () => {
       {["iPhone", "Ipad", "Mac", "Tai nghe", "Phụ Kiện", "Watch"].map((category, index) => (
         <div className="box-slide" key={index}>
           <a href="no" className="logo-cate">
-            <img src={appleIcon} alt="search icon" style={{ width: "27px", color: "white", paddingBottom: '9px' }} />
+            <img src={logo2} alt="search icon" style={{ width: "31px", color: "white", paddingBottom: '6px' }} />
             <h2 className="titleText">{category}</h2>
           </a>
           <div className="blocks-display">
@@ -91,11 +107,12 @@ const BoxSlides = () => {
                   width: '100%',
                   display: 'flex',
                   flexDirection: 'row',
-                  overflowY: 'auto'
+                  overflowY: 'auto',
                 }}
               >
-                {renderProductCards(products[category.toLowerCase()])}
+                {renderProductSlides(category)}
               </Swiper>
+
             </>
           </div>
         </div>

@@ -10,9 +10,9 @@ export const getAllProduct = async (search, limit) => {
     }
     return res.data
 }
-export const getProductsType = async (type, page, limit) =>{
+export const getProductsType = async (type, page, limit) => {
     let res = {}
-    if(type){
+    if (type) {
         res = await axios.get(`${import.meta.env.VITE_BASE_URL_API}/product/getAllProducts?filter=type&filter=${type}&limit=${limit}&page=${page}`)
         return res.data
     }

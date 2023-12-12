@@ -26,7 +26,7 @@ export const getDetailsOrder = async (id) => {
     return res.data;
 };
 
-export const cancelOrder = async (id, orderItems, userId) => {
+export const cancelOrder = async (id, orderItems) => {
     const data = { orderItems };
     const res = await axiosJWT.delete(
         `${import.meta.env.VITE_BASE_URL_API}/order/cancel-order/${id}`,
