@@ -1,26 +1,20 @@
 import { useState } from 'react'
-
 import './Navbar.css'
 import { ShoppingOutlined } from '@ant-design/icons'
 import search_icon from '../../assets/search-interface-symbol.png'
-import { NavLink } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { Badge } from 'antd'
-import { current } from '@reduxjs/toolkit'
 
 
 const Navbar = () => {
   const order = useSelector((state) => state.order)
-
   const navigate = useNavigate()
   const [searchValue, setSearchValue] = useState('')
-
 
   const handleCartIconClick = () => {
     navigate('/cart')
   }
-
 
   const handleInputChange = (e) => {
     setSearchValue(e.target.value)
@@ -30,9 +24,11 @@ const Navbar = () => {
     e.preventDefault()
     // Chuyển hướng đến trang FindPage và truyền giá trị của input
     navigate(`/find/${searchValue}`)
+    // Clear the search value
+    setSearchValue('')
   }
-  const amounts= order?.orderItems.map((order) => order.amount)
-  const totalAmount = amounts.reduce((acc, current) => acc+current, 0)
+  const amounts = order?.orderItems.map((order) => order.amount)
+  const totalAmount = amounts.reduce((acc, current) => acc + current, 0)
 
   return (
     <div className="navbar-container">
@@ -102,11 +98,7 @@ const Navbar = () => {
               onChange={handleInputChange}
             />
             <button type="submit">
-              <img
-                src={search_icon}
-                alt="search icon"
-                className="search-icon"
-              />
+              <img src={search_icon} alt="search icon" className="search-icon" />
             </button>
           </form>
         </div>
@@ -116,22 +108,22 @@ const Navbar = () => {
               <Badge count={totalAmount} size="small">
                 <ShoppingOutlined style={{ fontSize: '22px', color: '#000000' }} />
               </Badge>
-
             </div>
           </div>
+        </div>
 
-          {/* <div className="user-icon">
+        {/* <div className="user-icon">
             <img src={user_icon} alt="" className='icon'  onClick={handleDropdownOpen}/>
           </div> */}
-          {/* {dropdownOpen && (
+        {/* {dropdownOpen && (
             <div className="dropdown-menu">
               <NavLink to="/SignIn" >Đăng nhập</NavLink>
               <NavLink to="/SignUp">Đăng ký</NavLink>
             </div>
           )} */}
-        </div>
       </div>
     </div>
+
   )
 }
 

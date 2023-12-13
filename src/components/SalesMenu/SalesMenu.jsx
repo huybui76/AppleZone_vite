@@ -13,7 +13,7 @@ import Skeleton from 'react-loading-skeleton'
 function Menu() {
   const searchProduct = useSelector((state) => state?.product?.search)
   const searchDebounce = useDebounce(searchProduct, 500)
-  const [limit, setLimit] = useState(8)
+  const limit = 8
   const [products, setProducts] = useState([])
 
   const fetchProductAll = async (searchDebounce, limit) => {
@@ -32,7 +32,7 @@ function Menu() {
   const renderProductCards = (products) => {
     if (products && Array.isArray(products) && products.length > 0) {
       return products.map((product) => (
-        <SwiperSlide key={product._id} style={{ width: '250.5px' }}>
+        <SwiperSlide key={product._id} style={{ width: '250.5px', height:'420px' }}>
           <ProductItem
             key={product._id}
             product={product}

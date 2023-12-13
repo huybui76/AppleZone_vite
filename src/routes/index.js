@@ -54,6 +54,7 @@ export const routes = [
     page: FindPage,
     isNavbar: true,
     isFooter: false
+
   },
   {
     path: '*',
@@ -62,7 +63,7 @@ export const routes = [
   {
     path: '/cart',
     page: Cart,
-    isNavbar: false,
+    isNavbar: true,
     isFooter: false
   },
   {

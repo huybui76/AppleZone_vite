@@ -1,14 +1,13 @@
-import React from 'react'
 import './ProductItem.css'
 import { NavLink } from 'react-router-dom'
-import { Progress, Space } from 'antd'
+import { Progress } from 'antd'
 
 function ProductItem({ product }) {
   // Check if product is undefined
   if (!product) {
     return null // or return a loading indicator or placeholder
   }
-  console.log('dddddđ', product.countInStock)
+
   return (
     <div className="product-container">
       <NavLink to={`/products/${product._id}`} className="sale1-container" style={{ textDecoration: 'none' }}>
@@ -32,13 +31,16 @@ function ProductItem({ product }) {
           <div className="sale-container">
 
             <div className="original-price">
-              {(product?.price).toLocaleString('vi-VN')}đ
+              {product?.price ? (product.price).toLocaleString('vi-VN') + 'đ' : ''}
             </div>
+
             <div className="sales-percentage1">
               <div className="sales-percentage"><strong>-{product.discount}</strong>%</div>
             </div>
           </div >
-          <Progress percent={`${(product?.sold/product?.countInStock)*100}`} size={[190, 17]} strokeColor='#f36907' format={() => ''} />
+          <div className="sale-status">
+            <Progress percent={`${(product?.sold/product?.countInStock)*100}`} size={[220, 16]} strokeColor='#f36907' format={() => ''} />
+          </div>
         </div>
       </NavLink>
     </div>

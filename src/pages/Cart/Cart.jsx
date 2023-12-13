@@ -1,13 +1,13 @@
 import './Cart.css'
-import searchIcon from '../../assets/search-interface-symbol.png'
-import { useNavigate } from 'react-router-dom'
-import React, { useEffect, useState, useMemo } from 'react'
+
+import { NavLink, useNavigate } from 'react-router-dom'
+import { useEffect, useState, useMemo } from 'react'
 import noneProduct from '../../assets/noneProduct.png'
-import { Button, Input, Radio, Space, Form, message } from 'antd'
+import { Button, Input, Radio, Space, Form } from 'antd'
 import * as OrderService from '../../services/OrderService'
 import { useDispatch, useSelector } from 'react-redux'
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js'
-import orderSlide, {
+import {
   decreaseAmount,
   increaseAmount,
   removeOrderProduct,
@@ -26,7 +26,7 @@ const Cart = () => {
   const [selectedShippingMethod, setSelectedShippingMethod] = useState(1)
   const [discountCode, setDiscountCode] = useState('')
   const [isDiscountValid, setIsDiscountValid] = useState('')
-  const [selectedAddress, setSelectedAddress] = useState(null)
+
   const [form] = Form.useForm()
   const [user, setUser] = useState({
     name: localStorage.getItem('userName') || '',
@@ -40,7 +40,7 @@ const Cart = () => {
   const dispatch = useDispatch()
 
   const handleAddressSelect = (address) => {
-    setSelectedAddress(address)
+
     form.setFieldsValue({
       address: `${address?.ward}, ${address?.district}, ${address?.province}`
     })
@@ -95,9 +95,6 @@ const Cart = () => {
   }, [totalPriceMemo])
 
 
-  const handleHomeClick = () => {
-    navigate('/')
-  }
   const onFinish = async (values) => {
 
     try {
@@ -111,7 +108,7 @@ const Cart = () => {
       setIsModalOpen(false)
 
     } catch (error) {
-      console.error('Error updating user information:', error)
+      messageError('Đã có lỗi xảy ra khi nhập thông tin. Vui lòng thử lại!')
     }
   }
 
@@ -174,34 +171,14 @@ const Cart = () => {
       }
     } catch (error) {
       messageError('Đã có lỗi xảy ra khi đặt hàng. Vui lòng thử lại!')
-      console.error('Error placing order:', error)
+
     }
   }
 
 
   return (
     <div className="cart-container">
-      <div className="header-cart-container">
-        <div className="header-cart">
-          <div className="header-title">
-            <h1 onClick={handleHomeClick}>Apple Zone | Giỏ Hàng</h1>
-          </div>
-          <div className="search-product">
-            <input
-              type="text"
-              placeholder="Tìm kiếm sản phẩm"
-              className="search-product-input"
-            />
-            <button className="search-product-button">
-              <img
-                src={searchIcon}
-                alt="search icon"
-                className="search-product-icon"
-              />
-            </button>
-          </div>
-        </div>
-      </div>
+
       {order?.orderItems?.length !== 0 ? (
         <div>
           <div className="body-cart">
@@ -219,20 +196,23 @@ const Cart = () => {
 
                 {order?.orderItems?.map((order) => (
                   <div className="item-container" key={order?.product}>
-                    <div className="item__img-name">
-                      <div className="item__img-name1">
-                        <div className="item__img-container">
-                          <img
-                            src={order?.image}
-                            alt={order?.name}
-                            className="item-img"
-                          />
-                        </div>
-                        <div className="item-container-name">
-                          <div className="item-name">{order?.name}</div>
+                    <NavLink to={`/products/${order?.product}`} style={{ textDecoration:'none' }} >
+
+                      <div className="item__img-name">
+                        <div className="item__img-name1">
+                          <div className="item__img-container">
+                            <img
+                              src={order?.image}
+                              alt={order?.name}
+                              className="item-img"
+                            />
+                          </div>
+                          <div className="item-container-name">
+                            <div className="item-name">{order?.name}</div>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    </NavLink>
                     <div className="item-price">
                       <div className="item-price1">
                         {order?.price.toLocaleString()}

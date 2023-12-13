@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { Input, Select } from 'antd'
+import { useState, useEffect } from 'react'
+import { Select } from 'antd'
 import {
   fetchProvinces,
   fetchDistricts,
@@ -115,7 +115,7 @@ const AddressApi = ({ onAddressSelect } ) => {
         value={selectedProvince?.name}
         placeholder="Chọn tỉnh/Thành phố"
         defaultActiveFirstOption={false}
-        showArrow={false}
+        suffixIcon={false}
         filterOption={false}
         onSearch={handleProvinceSearch}
         onChange={handleProvinceSelect}
@@ -134,7 +134,7 @@ const AddressApi = ({ onAddressSelect } ) => {
         value={selectedDistrict?.name}
         placeholder="Chọn Quận/huyện"
         defaultActiveFirstOption={false}
-        showArrow={false}
+        suffixIcon={false}
         filterOption={false}
         onSearch={handleDistrictSearch}
         onChange={handleDistrictSelect}
@@ -153,7 +153,7 @@ const AddressApi = ({ onAddressSelect } ) => {
         value={selectedWard?.name}
         placeholder="Chọn Xã/Phường/Ấp"
         defaultActiveFirstOption={false}
-        showArrow={false}
+        suffixIcon={false}
         filterOption={false}
         onSearch={handleWardSearch}
         onChange={handleWardSelect}

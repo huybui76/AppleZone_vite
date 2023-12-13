@@ -5,6 +5,7 @@
   margin: 50px auto 80px;
   max-width: 1200px;
   min-width: 1024px;
+
   width: 100%;
   flex-direction: row;
 }

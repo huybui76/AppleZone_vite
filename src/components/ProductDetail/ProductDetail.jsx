@@ -38,8 +38,6 @@ const ProductDetail = (props) => {
 
   const dispatchProduct = () => {
     if (props.product.countInStock === 0) {
-      // Có thể hiển thị một thông báo cho người dùng hoặc thực hiện các hành động khác tùy thuộc vào yêu cầu của bạn
-      console.log('Sản phẩm đã hết hàng')
       return
     }
     dispatch(
@@ -115,8 +113,14 @@ const ProductDetail = (props) => {
               {props.product?.price ? (props.product.price - (props.product?.discount * props.product?.price) / 100).toLocaleString('vi-VN') : ''}<small>đ</small>
             </h3>
             <h5 className="product-side-sell-price">
-              <strike>{props.product?.price ? (props.product?.price).toLocaleString('vi-VN') : ''}<small>đ</small></strike>{' '}
+              {props.product && props.product.price !== undefined ? (
+                <strike>{(props.product.price).toLocaleString('vi-VN')}<small>đ</small></strike>
+              ) : (
+              // Handle the case when props.product or props.product.price is undefined
+                'N/A'
+              )}
             </h5>
+
           </div>
           <div className="product-side-ad">
             <img
@@ -133,7 +137,7 @@ const ProductDetail = (props) => {
             </h5>
           </div>
           {props.product.countInStock ===0 ?<div className='text-sold-out'>* Sản phẩm đã hết hàng</div>:<></>}
-          <Button className="buy-btn" type="primary" onClick={dispatchProduct} borderColorDisabled="#0b74fc" disabled={props.product.countInStock === 0}> Thêm vào giỏ hàng</Button>
+          <Button className="buy-btn" type="primary" onClick={dispatchProduct} disabled={props.product.countInStock === 0}> Thêm vào giỏ hàng</Button>
 
 
           <div className="product-side-set">

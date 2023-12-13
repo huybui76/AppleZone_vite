@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
-import { Button, ConfigProvider, Space } from 'antd'
+import { ConfigProvider } from 'antd'
 import reportWebVitals from './reportWebVitals'
 import { store } from './redux/store'
 import { Provider } from 'react-redux'
@@ -20,7 +20,12 @@ const queryClient = new QueryClient(
 const theme = {
   token: {
 
-    colorTextDisabled:'#d1c8c8'
+    colorTextDisabled:'#d1c8c8',
+
+    Progress: {
+      remainingColor:'#cec9c9'
+    }
+
   }
 }
 
