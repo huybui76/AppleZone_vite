@@ -102,7 +102,7 @@ const BoxSlides = () => {
                   type: 'progress',
                 }}
                 modules={[Pagination]}
-                className="mySwiper"
+
                 style={{
                   width: '100%',
                   display: 'flex',
