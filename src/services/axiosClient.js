@@ -1,21 +1,21 @@
-import axios from 'axios';
+import axios from 'axios'
 
 const axiosClient = axios.create({
-    baseURL: 'http://localhost:3001/api/',
-    withCredentials: false,
-    headers: {
-        'Content-type': 'application/json',
-    },
+  baseURL: 'http://localhost:3001/api/',
+  withCredentials: false,
+  headers: {
+    'Content-type': 'application/json'
+  }
 
 
-});
+})
 
 axiosClient.interceptors.request.use(function (config) {
-    return config;
-});
+  return config
+})
 
 axiosClient.interceptors.response.use(function (response) {
-    return response.data;
-});
+  return response.data
+})
 
-export default axiosClient;
+export default axiosClient

@@ -582,16 +582,17 @@
 
 .button-info-add {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   padding: 10px 1% 0 20px;
 }
 
 .button-info-add button {
-  background-color: #0fa6ecd2;
+  background-color: #08b1fed2;
   color: #fff;
   font-weight: 500;
   padding: 10px 20px;
   border-radius: 10px;
+  height: 40px;
   border: none;
   cursor: pointer;
 }

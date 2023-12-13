@@ -1,75 +1,31 @@
-import React, { useState, useEffect } from "react";
-import ProductDetail from "../../components/ProductDetail/ProductDetail";
-import { productData as baseProductData } from "../../constants/products";
-import "./ProductsPage.css";
-import Loading from "../../components/Loading/Loading";
-import * as ProductService from "../../services/ProductService";
-import { productData as productAttached } from "../../constants/attached";
-import Slider from "react-slick";
-import plus from "../../assets/plus.jpg";
-import { useParams } from "react-router-dom";
+import { useState, useEffect } from 'react'
+import ProductDetail from '../../components/ProductDetail/ProductDetail'
+import './ProductsPage.css'
+import * as ProductService from '../../services/ProductService'
+import { useParams } from 'react-router-dom'
 
 const ProductsPage = () => {
-  const { id } = useParams();
-  const [product, setProduct] = useState({});
-  const [loading, setLoading] = useState(false);
+  const { id } = useParams()
+  const [product, setProduct] = useState({})
 
   const fetchDetailProduct = async (productId) => {
-    setLoading(true);
-    const res = await ProductService.getDetailsProduct(productId);
-    if (res?.status === "OK") {
-      setLoading(false);
-      setProduct(res?.data);
-    } else {
-      setLoading(true);
+    const res = await ProductService.getDetailsProduct(productId)
+    if (res?.status === 'OK') {
+      setProduct(res?.data)
     }
-  };
+  }
 
   useEffect(() => {
     if (id) {
-      fetchDetailProduct(id);
+      fetchDetailProduct(id)
     }
-  }, [id]);
+  }, [id])
 
-  const sliderSettings = {
-    dots: true,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
-    initialSlide: 0,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  };
 
   return (
-    <div style={{ marginTop: "70px", zIndex: "-1" }}>
+    <div style={{ marginTop: '70px', zIndex: '-1' }}>
 
-      <div style={{ background: "#efefef" }}>
+      <div style={{ background: '#efefef' }}>
 
         <ProductDetail product={product} />
 
@@ -106,7 +62,7 @@ const ProductsPage = () => {
       {/* ... (other sections) */}
 
     </div>
-  );
-};
+  )
+}
 
-export default ProductsPage;
+export default ProductsPage

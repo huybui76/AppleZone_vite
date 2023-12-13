@@ -1,15 +1,15 @@
 import React from 'react'
 import './index.css'
-import success from "../../assets/success.png";
-import { Button } from 'antd';
-import { HomeTwoTone } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
+import success from '../../assets/success.png'
+import { Button } from 'antd'
+import { HomeTwoTone } from '@ant-design/icons'
+import { useNavigate } from 'react-router-dom'
 
 
 const OrderSuccessPage = () => {
   const navigate = useNavigate()
   const handelGoHome = () => {
-    navigate("/")
+    navigate('/')
   }
 
   return (

@@ -1,35 +1,33 @@
-import React, { useState, useEffect } from "react";
-import "./SalesMenu.css";
-import ProductItem from "../ProductItem/ProductItem";
-import * as ProductService from "../../services/ProductService";
-import { useDebounce } from "../../hooks/useDebounce";
-import { useSelector } from "react-redux";
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import { Pagination } from 'swiper/modules';
-import Skeleton from 'react-loading-skeleton';
+import { useState, useEffect } from 'react'
+import './SalesMenu.css'
+import ProductItem from '../ProductItem/ProductItem'
+import * as ProductService from '../../services/ProductService'
+import { useDebounce } from '../../hooks/useDebounce'
+import { useSelector } from 'react-redux'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/css'
+import 'swiper/css/pagination'
+import { Pagination } from 'swiper/modules'
+import Skeleton from 'react-loading-skeleton'
 
 function Menu() {
-  const searchProduct = useSelector((state) => state?.product?.search);
-  const searchDebounce = useDebounce(searchProduct, 500);
-  const [limit, setLimit] = useState(8);
-  const [products, setProducts] = useState([]);
+  const searchProduct = useSelector((state) => state?.product?.search)
+  const searchDebounce = useDebounce(searchProduct, 500)
+  const [limit, setLimit] = useState(8)
+  const [products, setProducts] = useState([])
 
   const fetchProductAll = async (searchDebounce, limit) => {
-    try {
-      const res = await ProductService.getAllProduct(searchDebounce, limit);
-      if (res?.status === "OK") {
-        setProducts(res?.data);
-      }
-    } catch (error) {
-      console.error("Error fetching products:", error);
+
+    const res = await ProductService.getAllProduct(searchDebounce, limit)
+    if (res?.status === 'OK') {
+      setProducts(res?.data)
     }
-  };
+
+  }
 
   useEffect(() => {
-    fetchProductAll(searchDebounce, limit);
-  }, [searchDebounce, limit]);
+    fetchProductAll(searchDebounce, limit)
+  }, [searchDebounce, limit])
 
   const renderProductCards = (products) => {
     if (products && Array.isArray(products) && products.length > 0) {
@@ -40,7 +38,7 @@ function Menu() {
             product={product}
           />
         </SwiperSlide>
-      ));
+      ))
     }
     else {
       // Render Skeleton for each slide if no data is available
@@ -48,11 +46,9 @@ function Menu() {
         <SwiperSlide key={index} style={{ width: '292.5px' }}>
           <Skeleton height={390} width={292.5} active />
         </SwiperSlide>
-      ));
+      ))
     }
   }
-
-
 
 
   return (
@@ -61,7 +57,7 @@ function Menu() {
       spaceBetween={20}
       pagination={{
         clickable: true,
-        type: 'progress',
+        type: 'progress'
       }}
       modules={[Pagination]}
       style={{
@@ -74,7 +70,7 @@ function Menu() {
     >
       {renderProductCards(products)}
     </Swiper>
-  );
+  )
 }
 
-export default Menu;
+export default Menu

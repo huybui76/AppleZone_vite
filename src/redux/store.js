@@ -9,14 +9,14 @@ import {
   PAUSE,
   PERSIST,
   PURGE,
-  REGISTER,
+  REGISTER
 } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
 const persistConfig = {
   key: 'root',
   version: 1,
-  storage,
+  storage
 
 }
 
@@ -33,9 +33,9 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }),
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+      }
+    })
 })
 
 export let persistor = persistStore(store)

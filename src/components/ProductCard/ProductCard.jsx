@@ -1,11 +1,8 @@
-import React from "react";
-import { FaStar, FaFireAlt, FaShoppingCart, FaRegBookmark } from "react-icons/fa";
-import "./ProductCard.css";
-import { NavLink } from "react-router-dom";
+import './ProductCard.css'
+import { NavLink } from 'react-router-dom'
 
 const ProductCard = (props) => {
-  // Console log for debugging
-  // console.log('Product Card Props:', props);
+
 
   return (
     <NavLink to={`/products/${props.productId}`} className="productCard">
@@ -21,7 +18,7 @@ const ProductCard = (props) => {
         </div>
       </div>
     </NavLink>
-  );
-};
+  )
+}
 
-export default ProductCard;
+export default ProductCard

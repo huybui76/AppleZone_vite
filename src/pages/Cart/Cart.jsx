@@ -1,105 +1,103 @@
-import "./Cart.css";
-import searchIcon from "../../assets/search-interface-symbol.png";
-import { useNavigate } from "react-router-dom";
-import React, { useEffect, useState, useMemo } from "react";
-import noneProduct from "../../assets/noneProduct.png";
-import { Button, Input, Radio, Space, Form, message } from "antd";
-import * as OrderService from "../../services/OrderService";
-import { useDispatch, useSelector } from "react-redux";
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import './Cart.css'
+import searchIcon from '../../assets/search-interface-symbol.png'
+import { useNavigate } from 'react-router-dom'
+import React, { useEffect, useState, useMemo } from 'react'
+import noneProduct from '../../assets/noneProduct.png'
+import { Button, Input, Radio, Space, Form, message } from 'antd'
+import * as OrderService from '../../services/OrderService'
+import { useDispatch, useSelector } from 'react-redux'
+import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js'
 import orderSlide, {
   decreaseAmount,
   increaseAmount,
   removeOrderProduct,
   removeAllOrderProduct
-} from "../../redux/slides/orderSlide";
-import ModalComponent from "../../components/ModalComponent/ModalComponent";
-import InputComponent from "../../components/InputComponent/InputComponent";
-import { messageSuccess, messageError } from "../../utils";
-import AddressApi from "../../components/AddressComponent/AddressApi";
+} from '../../redux/slides/orderSlide'
+import ModalComponent from '../../components/ModalComponent/ModalComponent'
+import InputComponent from '../../components/InputComponent/InputComponent'
+import { messageSuccess, messageError } from '../../utils'
+import AddressApi from '../../components/AddressComponent/AddressApi'
+
+import { EnvironmentOutlined } from '@ant-design/icons'
 
 
 const Cart = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedShippingMethod, setSelectedShippingMethod] = useState(1);
-  const [discountCode, setDiscountCode] = useState("");
-  const [isDiscountValid, setIsDiscountValid] = useState("");
-  const [selectedAddress, setSelectedAddress] = useState(null);
-  const [form] = Form.useForm();
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [selectedShippingMethod, setSelectedShippingMethod] = useState(1)
+  const [discountCode, setDiscountCode] = useState('')
+  const [isDiscountValid, setIsDiscountValid] = useState('')
+  const [selectedAddress, setSelectedAddress] = useState(null)
+  const [form] = Form.useForm()
   const [user, setUser] = useState({
-    name: localStorage.getItem("userName") || "",
-    phone: localStorage.getItem("userPhone") || "",
-    address: localStorage.getItem("userAddress") || "",
-    detailAddress: localStorage.getItem("userDetailAddress") || "",
-  });
-  const [totalAmountUSD, setTotalAmountUSD] = useState(0);
-  const order = useSelector((state) => state.order);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+    name: localStorage.getItem('userName') || '',
+    phone: localStorage.getItem('userPhone') || '',
+    address: localStorage.getItem('userAddress') || '',
+    detailAddress: localStorage.getItem('userDetailAddress') || ''
+  })
+  const [totalAmountUSD, setTotalAmountUSD] = useState(0)
+  const order = useSelector((state) => state.order)
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const handleAddressSelect = (address) => {
-    setSelectedAddress(address);
+    setSelectedAddress(address)
     form.setFieldsValue({
-      address: `${address?.ward}, ${address?.district}, ${address?.province}`,
-    });
-  };
+      address: `${address?.ward}, ${address?.district}, ${address?.province}`
+    })
+  }
 
   const handleChangeCount = (type, idProduct, limited) => {
-    if (type === "increase" && !limited) {
-      dispatch(increaseAmount({ idProduct }));
-    } else if (type === "decrease" && !limited) {
-      dispatch(decreaseAmount({ idProduct }));
+    if (type === 'increase' && !limited) {
+      dispatch(increaseAmount({ idProduct }))
+    } else if (type === 'decrease' && !limited) {
+      dispatch(decreaseAmount({ idProduct }))
     }
-  };
+  }
 
   const handleDeleteOrder = (idProduct) => {
-    dispatch(removeOrderProduct({ idProduct }));
-  };
+    dispatch(removeOrderProduct({ idProduct }))
+  }
 
   const handleDiscountApply = () => {
 
-    if (discountCode === "APPLEZONE") {
-      setIsDiscountValid(10);
-    } else if (discountCode === "APPLE") {
-      setIsDiscountValid(5);
+    if (discountCode === 'APPLEZONE') {
+      setIsDiscountValid(10)
+    } else if (discountCode === 'APPLE') {
+      setIsDiscountValid(5)
     } else {
-      setIsDiscountValid(null);
+      setIsDiscountValid(null)
     }
-  };
+  }
 
   const priceMemo = useMemo(() => {
     return order?.orderItems?.reduce((total, cur) => {
-      return total + (cur.price - (cur.price * cur.discount) / 100) * cur.amount;
-    }, 0);
-  }, [order]);
+      return total + (cur.price - (cur.price * cur.discount) / 100) * cur.amount
+    }, 0)
+  }, [order])
   const priceDiscountMemo = useMemo(() => {
     return order?.orderItems?.reduce((total, cur) => {
-      const totalDiscount = isDiscountValid || 0;
-      return total + (cur.price * cur.amount * (totalDiscount * cur.amount)) / 100;
-    }, 0) || 0;
-  }, [order, isDiscountValid]);
-
+      const totalDiscount = isDiscountValid || 0
+      return total + (cur.price * cur.amount * (totalDiscount * cur.amount)) / 100
+    }, 0) || 0
+  }, [order, isDiscountValid])
 
 
   const totalPriceMemo = useMemo(() => {
 
-    return priceMemo - priceDiscountMemo;
-  }, [priceMemo, priceDiscountMemo]);
-
+    return priceMemo - priceDiscountMemo
+  }, [priceMemo, priceDiscountMemo])
 
 
   useEffect(() => {
-    const exchangeRate = 0.000041;
-    const newTotalAmountUSD = (totalPriceMemo * exchangeRate).toFixed(2);
-    setTotalAmountUSD(newTotalAmountUSD);
-  }, [totalPriceMemo]);
-
-
+    const exchangeRate = 0.000041
+    const newTotalAmountUSD = (totalPriceMemo * exchangeRate).toFixed(2)
+    setTotalAmountUSD(newTotalAmountUSD)
+  }, [totalPriceMemo])
 
 
   const handleHomeClick = () => {
-    navigate("/");
-  };
+    navigate('/')
+  }
   const onFinish = async (values) => {
 
     try {
@@ -107,104 +105,102 @@ const Cart = () => {
         name: values.name,
         phone: values.sdt,
         address: values.address,
-        detailAddress: values.detailAddress,
-      });
+        detailAddress: values.detailAddress
+      })
 
-      setIsModalOpen(false);
+      setIsModalOpen(false)
 
     } catch (error) {
-      console.error("Error updating user information:", error);
+      console.error('Error updating user information:', error)
     }
-  };
+  }
 
 
   useEffect(() => {
-   
-    localStorage.setItem("userName", user.name);
-    localStorage.setItem("userPhone", user.phone);
-    localStorage.setItem("userAddress", user.address);
-    localStorage.setItem("userDetailAddress", user.detailAddress);
-  }, [user]);
+
+    localStorage.setItem('userName', user.name)
+    localStorage.setItem('userPhone', user.phone)
+    localStorage.setItem('userAddress', user.address)
+    localStorage.setItem('userDetailAddress', user.detailAddress)
+  }, [user])
 
   const handleCancel = () => {
-    setIsModalOpen(false);
-    form.resetFields();
-  };
+    setIsModalOpen(false)
+    form.resetFields()
+  }
   const priceDiscount = (item, discountPercentage) => {
-    const discountedPrice = item - (item * discountPercentage) / 100;
-    return discountedPrice.toLocaleString();
-  };
+    const discountedPrice = item - (item * discountPercentage) / 100
+    return discountedPrice.toLocaleString()
+  }
   const priceTotal = (price, discount, count) => {
-    const priceTotal = (price - (price * discount) / 100) * count;
-    return priceTotal.toLocaleString();
-  };
+    const priceTotal = (price - (price * discount) / 100) * count
+    return priceTotal.toLocaleString()
+  }
   const handlePlaceOrder = async (payStatus) => {
 
-    if (!user.name || !user.phone || !user.address||!user.detailAddress) {
-      messageError("Vui lòng nhập thông tin giao hàng trước khi đặt hàng.");
-      return;
+    if (!user.name || !user.phone || !user.address || !user.detailAddress) {
+      messageError('Vui lòng nhập thông tin giao hàng trước khi đặt hàng.')
+      return
     }
 
     const orderData = {
       fullName: user.name,
       phone: user.phone,
-      address:`${user.detailAddress}, ${user.address}`,
-     
-       shippingMethod: selectedShippingMethod,
+      address: `${user.detailAddress}, ${user.address}`,
+
+      shippingMethod: selectedShippingMethod,
       orderItems: order?.orderItems?.map((item) => ({
         product: item.product,
-        amount: item.amount,
+        amount: item.amount
       })),
       itemsPrice: priceMemo,
-      totalPrice: totalPriceMemo,
+      totalPrice: totalPriceMemo
 
-    };
+    }
 
 
     try {
-      const response = await OrderService.createOrder(orderData);
+      const response = await OrderService.createOrder(orderData)
 
-      if (response.status === "OK" || response.status === "OK" && payStatus.status === "COMPLETED") {
-        messageSuccess("Đặt hàng thành công!");
-        const productsToRemove = order?.orderItems.map(item => item.product);
-        dispatch(removeAllOrderProduct(productsToRemove));
+      if (response.status === 'OK' || response.status === 'OK' && payStatus.status === 'COMPLETED') {
+        messageSuccess('Đặt hàng thành công!')
+        const productsToRemove = order?.orderItems.map(item => item.product)
+        dispatch(removeAllOrderProduct(productsToRemove))
 
-        navigate('/order-success');
+        navigate('/order-success')
 
       } else {
-        messageError("Đã có lỗi xảy ra khi đặt hàng. Vui lòng thử lại!");
+        messageError('Đã có lỗi xảy ra khi đặt hàng. Vui lòng thử lại!')
       }
     } catch (error) {
-      messageError("Đã có lỗi xảy ra khi đặt hàng. Vui lòng thử lại!");
-      console.error("Error placing order:", error);
+      messageError('Đã có lỗi xảy ra khi đặt hàng. Vui lòng thử lại!')
+      console.error('Error placing order:', error)
     }
-  };
-
-
+  }
 
 
   return (
     <div className="cart-container">
       <div className="header-cart-container">
-      <div className="header-cart">
-        <div className="header-title">
-          <h1 onClick={handleHomeClick}>Apple Zone | Giỏ Hàng</h1>
-        </div>
-        <div className="search-product">
-          <input
-            type="text"
-            placeholder="Tìm kiếm sản phẩm"
-            className="search-product-input"
-          />
-          <button className="search-product-button">
-            <img
-              src={searchIcon}
-              alt="search icon"
-              className="search-product-icon"
+        <div className="header-cart">
+          <div className="header-title">
+            <h1 onClick={handleHomeClick}>Apple Zone | Giỏ Hàng</h1>
+          </div>
+          <div className="search-product">
+            <input
+              type="text"
+              placeholder="Tìm kiếm sản phẩm"
+              className="search-product-input"
             />
-          </button>
+            <button className="search-product-button">
+              <img
+                src={searchIcon}
+                alt="search icon"
+                className="search-product-icon"
+              />
+            </button>
+          </div>
         </div>
-      </div>
       </div>
       {order?.orderItems?.length !== 0 ? (
         <div>
@@ -252,7 +248,7 @@ const Cart = () => {
                       >
                         <button className="minus" onClick={() =>
                           handleChangeCount(
-                            "decrease",
+                            'decrease',
                             order?.product,
                             order?.amount === 1
                           )
@@ -277,7 +273,7 @@ const Cart = () => {
                           className="plus"
                           onClick={() =>
                             handleChangeCount(
-                              "increase",
+                              'increase',
                               order?.product,
                               order?.amount === order.countInStock - 1,
                               order?.amount === 1
@@ -318,9 +314,9 @@ const Cart = () => {
                   <div className="ship-container">
                     <p>Giao Tới</p>
                     <div className="button-info-add">
-                      <button onClick={() => setIsModalOpen(true)}>
+                      <Button icon={<EnvironmentOutlined />} onClick={() => setIsModalOpen(true)}>
                         Thêm mới
-                      </button>
+                      </Button>
                     </div>
                   </div>
                   {/* Modal Component */}
@@ -343,7 +339,7 @@ const Cart = () => {
                         label="Họ Và Tên"
                         name="name"
                         rules={[
-                          { required: true, message: "Vui lòng nhập thông tin!" },
+                          { required: true, message: 'Vui lòng nhập thông tin!' }
                         ]}
                       >
                         <InputComponent />
@@ -352,24 +348,24 @@ const Cart = () => {
                         label="Số Điện Thoại"
                         name="sdt"
                         rules={[
-                          { required: true, message: "Vui lòng nhập thông tin!" },
+                          { required: true, message: 'Vui lòng nhập thông tin!' },
                           {
                             pattern: /^0\d{9}$/,
-                            message: "Số điện thoại không hợp lệ.",
-                          },
+                            message: 'Số điện thoại không hợp lệ.'
+                          }
                         ]}
                       >
                         <InputComponent />
                       </Form.Item>
-                    
+
                       <Form.Item
                         label="Địa Chỉ"
                         name="address"
                         rules={[
-                          { required: true, message: "Vui lòng nhập thông tin Địa chỉ!" },
+                          { required: true, message: 'Vui lòng nhập thông tin Địa chỉ!' }
                         ]}
                       >
-                      
+
                         <AddressApi onAddressSelect={handleAddressSelect} />
                       </Form.Item>
 
@@ -377,10 +373,10 @@ const Cart = () => {
                         label="Địa Chỉ Cụ Thể"
                         name="detailAddress"
                         rules={[
-                          { required: true, message: "Vui lòng nhập thông tin!" },
+                          { required: true, message: 'Vui lòng nhập thông tin!' }
                         ]}
                       >
-                      
+
                         <InputComponent maxLength={45} />
                       </Form.Item>
                       <Form.Item wrapperCol={{ offset: 20, span: 16 }}>
@@ -401,8 +397,8 @@ const Cart = () => {
                       </div>
                     </div>
                     <div className="user-data-name3">
-                    <div style={{padding:'2px'}}>{user.detailAddress}</div>
-                     <div style={{padding:'2px'}}>{user.address}</div> 
+                      <div style={{ padding: '2px' }}>{user.detailAddress}</div>
+                      <div style={{ padding: '2px' }}>{user.address}</div>
                     </div>
                   </div>
                 </div>
@@ -435,7 +431,7 @@ const Cart = () => {
                         Áp Dụng
                       </Button>
                     </div>
-                    {isDiscountValid && <div className="success-discount" style={{ color: "#ff0000" }}>-{isDiscountValid}%</div>}
+                    {isDiscountValid && <div className="success-discount" style={{ color: '#ff0000' }}>-{isDiscountValid}%</div>}
 
                     {/* <hr /> */}
                     <div className="total-price">
@@ -451,7 +447,7 @@ const Cart = () => {
                 </Button>
               ) : (
                 <div>
-                  <PayPalScriptProvider options={{ "client-id": "AbqXaYkFhdVTS8Q5aRt5dyAakPAoPciRk62aFH_wYXr0JCmYWrIoyRk8b_YcUmzEkrLpFQVBDZkr2l6Q", currency: "USD" }}>
+                  <PayPalScriptProvider options={{ 'client-id': 'AbqXaYkFhdVTS8Q5aRt5dyAakPAoPciRk62aFH_wYXr0JCmYWrIoyRk8b_YcUmzEkrLpFQVBDZkr2l6Q', currency: 'USD' }}>
                     <PayPalButtons
                       createOrder={(data, actions) => {
                         return actions.order.create({
@@ -459,16 +455,16 @@ const Cart = () => {
                             {
                               amount: {
                                 value: totalAmountUSD,
-                                currency_code: "USD",
-                              },
-                            },
-                          ],
-                        });
+                                currency_code: 'USD'
+                              }
+                            }
+                          ]
+                        })
                       }}
                       onApprove={async (data, actions) => {
                         // Logic when the payment is approved
-                        const details = await actions.order.capture();
-                        handlePlaceOrder(details);
+                        const details = await actions.order.capture()
+                        handlePlaceOrder(details)
                       }}
                     />
                   </PayPalScriptProvider>
@@ -485,7 +481,7 @@ const Cart = () => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Cart;
+export default Cart
