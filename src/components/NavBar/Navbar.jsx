@@ -7,6 +7,7 @@ import { NavLink } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { Badge } from 'antd'
+import { current } from '@reduxjs/toolkit'
 
 
 const Navbar = () => {
@@ -30,6 +31,8 @@ const Navbar = () => {
     // Chuyển hướng đến trang FindPage và truyền giá trị của input
     navigate(`/find/${searchValue}`)
   }
+  const amounts= order?.orderItems.map((order) => order.amount)
+  const totalAmount = amounts.reduce((acc, current) => acc+current, 0)
 
   return (
     <div className="navbar-container">
@@ -110,7 +113,7 @@ const Navbar = () => {
         <div className="nav-icon">
           <div className="shopping-icon">
             <div onClick={handleCartIconClick} style={{ cursor: 'pointer' }}>
-              <Badge count={order?.orderItems?.length} size="small">
+              <Badge count={totalAmount} size="small">
                 <ShoppingOutlined style={{ fontSize: '22px', color: '#000000' }} />
               </Badge>
 

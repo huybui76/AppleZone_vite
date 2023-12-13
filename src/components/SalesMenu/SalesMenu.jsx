@@ -32,7 +32,7 @@ function Menu() {
   const renderProductCards = (products) => {
     if (products && Array.isArray(products) && products.length > 0) {
       return products.map((product) => (
-        <SwiperSlide key={product._id} style={{ width: '292.5px' }}>
+        <SwiperSlide key={product._id} style={{ width: '250.5px' }}>
           <ProductItem
             key={product._id}
             product={product}
@@ -41,10 +41,10 @@ function Menu() {
       ))
     }
     else {
-      // Render Skeleton for each slide if no data is available
-      return Array.from({ length: 4 }).map((_, index) => (
-        <SwiperSlide key={index} style={{ width: '292.5px' }}>
-          <Skeleton height={390} width={292.5} active />
+    // Render Skeleton for each slide if no data is available
+      return Array.from({ length: 5 }).map((_, index) => (
+        <SwiperSlide key={index} style={{ width: '250.5px' }}>
+          <Skeleton style={{ borderRadius:'15px' }} height={370} width={220.5} active/>
         </SwiperSlide>
       ))
     }
@@ -53,7 +53,7 @@ function Menu() {
 
   return (
     <Swiper
-      slidesPerView={4}
+      slidesPerView={5}
       spaceBetween={20}
       pagination={{
         clickable: true,

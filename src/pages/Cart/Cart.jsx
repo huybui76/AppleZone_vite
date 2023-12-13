@@ -246,13 +246,15 @@ const Cart = () => {
                         className="item-quantity1"
 
                       >
-                        <button className="minus" onClick={() =>
-                          handleChangeCount(
-                            'decrease',
-                            order?.product,
-                            order?.amount === 1
-                          )
-                        }>
+                        <button className="minus"
+                          disabled = {order?.amount === 1}
+                          onClick={() =>
+                            handleChangeCount(
+                              'decrease',
+                              order?.product,
+                              order?.amount === 1
+                            )
+                          }>
                           <img
                             src="/minus.png"
                             alt="minus"
@@ -271,11 +273,12 @@ const Cart = () => {
                         </div>
                         <button
                           className="plus"
+                          disabled = {order?.amount === order.countInStock}
                           onClick={() =>
                             handleChangeCount(
                               'increase',
                               order?.product,
-                              order?.amount === order.countInStock - 1,
+                              order?.amount === order.countInStock,
                               order?.amount === 1
                             )
                           }

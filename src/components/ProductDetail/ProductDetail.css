@@ -181,6 +181,11 @@
   font-weight: bold;
   color: rgb(255, 255, 255);
   background-color: #0071e3;
+  font: 21px/25px Helvetica Neue, Helvetica, Arial, SF Pro Display, sans-serif;
+}
+.text-sold-out {
+  color: #fc0b0b;
+  font: 21px/25px Helvetica Neue, Helvetica, Arial, SF Pro Display, sans-serif;
 }
 
 .buy {

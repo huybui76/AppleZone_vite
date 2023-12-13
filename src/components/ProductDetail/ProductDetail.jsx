@@ -1,20 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import './ProductDetail.css'
-import logo from '../../assets/logo.png'
-import question from '../../assets/question_mark.png'
 import productSet from '../../assets/setProduct.jpg'
 import returnImg from '../../assets/return.jpg'
 import shipping from '../../assets/shipping.jpg'
 import contact from '../../assets/contact.jpg'
 import { addOrderProduct, resetOrder } from '../../redux/slides/orderSlide'
-import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import gurantee from '../../assets/gurantee.jpg'
-import { NavLink } from 'react-router-dom'
-import { messageSuccess, messageError } from '../../utils'
+import { messageSuccess } from '../../utils'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules'
 import { Button } from 'antd'
+import logo3 from '../../assets/logo3.svg'
+
 
 // Import Swiper styles
 import 'swiper/css'
@@ -30,7 +28,7 @@ const ProductDetail = (props) => {
 
   useEffect(() => {
     if (orderItem.isSuccessOrder) {
-      messageSuccess('Đã thêm vào giỏ hàng')
+      messageSuccess('Thêm vào giỏ hàng thành công')
     }
     return () => {
       dispatch(resetOrder())
@@ -39,6 +37,11 @@ const ProductDetail = (props) => {
 
 
   const dispatchProduct = () => {
+    if (props.product.countInStock === 0) {
+      // Có thể hiển thị một thông báo cho người dùng hoặc thực hiện các hành động khác tùy thuộc vào yêu cầu của bạn
+      console.log('Sản phẩm đã hết hàng')
+      return
+    }
     dispatch(
       addOrderProduct({
         orderItem: {
@@ -53,10 +56,6 @@ const ProductDetail = (props) => {
       })
     )
   }
-
-
-  const dienmayxanhLogo =
-    'https://cdn.tgdd.vn/mwgcart/topzone/images/promote_loyalty/logo.png'
 
 
   return (
@@ -122,19 +121,19 @@ const ProductDetail = (props) => {
           <div className="product-side-ad">
             <img
               style={{ width: '30px', marginRight: '10px' }}
-              src={dienmayxanhLogo}
+              src={logo3}
               alt=""
             />
-            <p className="product-side-ad-title">+184.950 điểm tích lũy Quà Tặng VIP</p>
-            <img src={question} style={{ width: '30px' }} alt="" />
+            <p className="product-side-ad-title">+184.950 điểm tích lũy AppleZone</p>
+
           </div>
           <div className="product-side-title">
             <h5 className="product-side-title-detail">
               {props.product?.description}
             </h5>
           </div>
-
-          <Button className="buy-btn" type="primary" onClick={dispatchProduct}> Thêm vào giỏ hàng</Button>
+          {props.product.countInStock ===0 ?<div className='text-sold-out'>* Sản phẩm đã hết hàng</div>:<></>}
+          <Button className="buy-btn" type="primary" onClick={dispatchProduct} borderColorDisabled="#0b74fc" disabled={props.product.countInStock === 0}> Thêm vào giỏ hàng</Button>
 
 
           <div className="product-side-set">

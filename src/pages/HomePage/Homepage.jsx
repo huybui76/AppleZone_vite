@@ -1,4 +1,4 @@
-import React from 'react'
+
 import Flashsales from '../../components/Flashsales/Flashsales'
 import SlideAnimate from '../../components/SlideAnimate/SlideAnimate'
 import BoxSlides from '../../components/BoxSlides/BoxSlides'
