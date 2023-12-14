@@ -111,7 +111,7 @@ const FindPage = () => {
 
                 {hasMore && (
                   <Button type="primary" className='button-load' onClick={handleLoadMore} disabled={loading}>
-                    {loading ? 'Loading...' : 'Load More'}
+                    {loading ? 'Đang tải...' : 'Xem thêm'}
                   </Button>
                 )}
                 {!hasMore && <></>}

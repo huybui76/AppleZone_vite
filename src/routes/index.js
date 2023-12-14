@@ -26,7 +26,7 @@ export const routes = [
   },
 
   {
-    path: '/products/:id',
+    path: '/product/:id',
     page: ProductsPage,
     isNavbar: true,
     isFooter: true
@@ -67,7 +67,7 @@ export const routes = [
     isFooter: false
   },
   {
-    path: '/products-type/:product',
+    path: '/product/type/:product',
     page: ProductTypePage,
     isNavbar: true
   }

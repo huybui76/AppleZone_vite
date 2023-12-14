@@ -22,7 +22,7 @@ const Order = () => {
 
   const queryProduct = useQuery({
     queryKey: ['products'],
-    queryFn: ProductService.getCountProduct
+    queryFn: ProductService.getAllProduct
   })
   const { data: products } = queryProduct
 

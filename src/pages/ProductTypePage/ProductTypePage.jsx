@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Col, Pagination, Row } from 'antd'
+import { Col, Pagination, Row, Button } from 'antd'
 import { WrapperProducts } from './style'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
@@ -15,32 +15,76 @@ import './ProductTypePage.css'
 const ProductTypePage = () => {
   const { product } = useParams()
   const [products, setProducts] = useState([])
-  const searchProduct = useSelector((state) => state?.product?.search)
-  const [panigate, setPanigate] = useState({
-    page: 0,
-    limit: 10,
-    total: 1
-  })
+  const [loading, setLoading] = useState(false)
+  const [page, setPage] = useState(6) // Track the current page
+  const [hasMore, setHasMore] = useState(true) // Flag to check if there are more products to load
 
-  const searchDebounce = useDebounce(searchProduct, 500)
+  const getProductTypeLabel = (productId) => {
+    switch (productId) {
+    case '6564aee73adaf4c11a499a6b':
+      return 'Iphone'
+    case '6564aefd3adaf4c11a499a72':
+      return 'Ipad'
+
+    case '6564af133adaf4c11a499a7c':
+      return 'Mac'
+    case '6564af273adaf4c11a499a89':
+      return 'Tai nghe'
+    case '6564af3f3adaf4c11a499a99':
+      return 'Phụ kiện'
+    case '6564af583adaf4c11a499aac':
+      return 'Apple Watch'
+    default:
+      return ''
+    }
+  }
+
+  const typeOfProduct = getProductTypeLabel(product)
+
+  const fetchProducts = async (type, page) => {
+    setLoading(true)
+    try {
+      const res = await ProductService.getProductsType(type, 0, page)
+      if (res?.status === 'OK') {
+        setLoading(false)
+        setProducts((prevProducts) => {
+          const newProducts = res?.data.filter(
+            (newProduct) => !prevProducts.some((existingProduct) => existingProduct._id === newProduct._id)
+          )
+          return [...prevProducts, ...newProducts]
+        })
+        setHasMore(res?.data.length !== res?.total)
+      } else {
+        setLoading(false)
+        // Handle error, e.g., show an error message
+      }
+    } catch (error) {
+      setLoading(false)
+      // Handle error, e.g., show an error message
+    }
+  }
+
+  const handleLoadMore = () => {
+    if (hasMore) {
+      setPage((prevPage) => prevPage + 6)
+    }
+  }
+
+  const resetStateOnProductChange = () => {
+    setProducts([])
+    setPage(6)
+    setHasMore(true)
+  }
 
   useEffect(() => {
-    const fetchProductType = async (type, page, limit) => {
-      const res = await ProductService.getProductsType(type, page, limit)
-      if (res?.status === 'OK') {
-        setProducts(res?.data)
-        setPanigate({ ...panigate, total: res?.totalPage })
-      }
-    }
+    resetStateOnProductChange()
+  }, [product])
 
-    if (product) {
-      fetchProductType(product, panigate.page, panigate.limit)
+  useEffect(() => {
+    if (product && hasMore) {
+      fetchProducts(product, page)
     }
-  }, [product, panigate.page, panigate.limit])
-
-  const onChange = (current, pageSize) => {
-    setPanigate({ ...panigate, page: current - 1, limit: pageSize })
-  }
+  }, [product, page, hasMore])
 
   const renderProductCards = (products) => {
     if (!products || !Array.isArray(products) || products.length === 0) {
@@ -70,36 +114,10 @@ const ProductTypePage = () => {
     if (productData && Array.isArray(productData) && productData.length > 0) {
       return renderProductCards(productData)
     } else {
-      return Array.from({ length: 4 }).map((_, index) => (
-        <Skeleton key={index} height={390} width={292.5} active />
-      ))
+      return Array.from({ length: 4 }).map((_, index) => <Skeleton key={index} height={390} width={292.5} active />)
     }
   }
 
-  let typeOfProduct = ''
-
-  switch (product) {
-  case '6564aee73adaf4c11a499a6b':
-    typeOfProduct = 'Iphone'
-    break
-  case '6564aefd3adaf4c11a499a72':
-    typeOfProduct = 'Ipad'
-    break
-  case '6564af133adaf4c11a499a7c':
-    typeOfProduct = 'Mac'
-    break
-  case '6564af273adaf4c11a499a89':
-    typeOfProduct = 'Tai nghe'
-    break
-  case '6564af3f3adaf4c11a499a99':
-    typeOfProduct = 'Phụ kiện'
-    break
-  case '6564af583adaf4c11a499aac':
-    typeOfProduct = 'Apple Watch'
-    break
-  default:
-    break
-  }
 
   return (
     <div className="product-page-container">
@@ -120,12 +138,13 @@ const ProductTypePage = () => {
               <Col span={20} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '100%' }}>
                 {renderProductSlides(products)}
 
-                <Pagination
-                  defaultCurrent={panigate.page + 1}
-                  total={panigate?.total}
-                  onChange={onChange}
-                  style={{ textAlign: 'center', marginTop: '10px' }}
-                />
+
+                {hasMore && (
+                  <Button type="primary" className='button-load' onClick={handleLoadMore} disabled={loading}>
+                    {loading ? 'Đang tải...' : 'Xem thêm'}
+                  </Button>
+                )}
+                {!hasMore && <></>}
               </Col>
             </Row>
           </div>

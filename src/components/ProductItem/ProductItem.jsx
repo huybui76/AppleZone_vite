@@ -10,7 +10,7 @@ function ProductItem({ product }) {
 
   return (
     <div className="product-container">
-      <NavLink to={`/products/${product._id}`} className="sale1-container" style={{ textDecoration: 'none' }}>
+      <NavLink to={`/product/${product._id}`} className="sale1-container" style={{ textDecoration: 'none' }}>
         <div className="img-container">
 
           <div className="product-img">
@@ -39,7 +39,7 @@ function ProductItem({ product }) {
             </div>
           </div >
           <div className="sale-status">
-            <Progress percent={`${(product?.sold/product?.countInStock)*100}`} size={[220, 16]} strokeColor='#f36907' format={() => ''} />
+            <Progress percent={`${(product?.sold / product?.countInStock) * 100}`} size={[220, 16]} strokeColor='#f36907' format={() => ''} />
           </div>
         </div>
       </NavLink>

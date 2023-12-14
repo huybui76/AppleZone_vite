@@ -17,12 +17,12 @@ const DashboardSummary = () => {
 
   const queryProductCount = useQuery({
     queryKey: ['productCount'],
-    queryFn: ProductService.getCountProduct
+    queryFn: ProductService.getAllProduct
   })
 
   const queryProductTypeCount = useQuery({
     queryKey: ['productTypeCount'],
-    queryFn: ProductTypeService.getCountProductType
+    queryFn: ProductTypeService.getAllProductType
   })
   const queryOrderCount = useQuery({
     queryKey: ['orderCount'],

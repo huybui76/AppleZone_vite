@@ -2,7 +2,7 @@ import { axiosJWT } from './UserService'
 
 export const createOrder = async (data) => {
   const res = await axiosJWT.post(
-    `${import.meta.env.VITE_BASE_URL_API}/order/create-order`,
+    `${import.meta.env.VITE_BASE_URL_API}/order`,
     data,
     {}
   )
@@ -12,7 +12,7 @@ export const createOrder = async (data) => {
 
 export const getOrderByPhone = async (id) => {
   const res = await axiosJWT.get(
-    `${import.meta.env.VITE_BASE_URL_API}/order/get-order-by-phone/${id}`,
+    `${import.meta.env.VITE_BASE_URL_API}/order/phone/${id}`,
     {}
   )
   return res.data
@@ -20,7 +20,7 @@ export const getOrderByPhone = async (id) => {
 
 export const getDetailsOrder = async (id) => {
   const res = await axiosJWT.get(
-    `${import.meta.env.VITE_BASE_URL_API}/order/get-details-order/${id}`,
+    `${import.meta.env.VITE_BASE_URL_API}/order/${id}`,
     {}
   )
   return res.data
@@ -29,7 +29,7 @@ export const getDetailsOrder = async (id) => {
 export const cancelOrder = async (id, orderItems) => {
   const data = { orderItems }
   const res = await axiosJWT.delete(
-    `${import.meta.env.VITE_BASE_URL_API}/order/cancel-order/${id}`,
+    `${import.meta.env.VITE_BASE_URL_API}/order/${id}`,
     { data },
     {}
   )
@@ -38,7 +38,7 @@ export const cancelOrder = async (id, orderItems) => {
 
 export const getAllOrder = async () => {
   const res = await axiosJWT.get(
-    `${import.meta.env.VITE_BASE_URL_API}/order/get-all-order`,
+    `${import.meta.env.VITE_BASE_URL_API}/order`,
     {}
   )
   return res.data

@@ -70,7 +70,7 @@ const ProductType = () => {
 
   const handleDeleteConfirmed = async () => {
     await axiosClient.delete(
-      `productType/deleteProductType/${deletingCategoryId}`,
+      `productType/${deletingCategoryId}`,
       { _id: deletingCategoryId }
     )
 
@@ -89,7 +89,7 @@ const ProductType = () => {
     const isNameExists = productTypes?.data?.some(
       (item) =>
         item.name.toLowerCase() === values.name.toLowerCase() &&
-                item._id !== editingProductTypeId
+        item._id !== editingProductTypeId
     )
 
     if (isNameExists) {
@@ -103,7 +103,7 @@ const ProductType = () => {
       setImage([])
       if (
         data?.status === 'OK' &&
-                data?.message === 'ProductType created successfully'
+        data?.message === 'ProductType created successfully'
       ) {
         handleCancel()
 
@@ -114,7 +114,7 @@ const ProductType = () => {
 
       if (
         data?.status === 'OK' &&
-                data?.message === 'UPDATE PRODUCT TYPE SUCCESS'
+        data?.message === 'UPDATE PRODUCT TYPE SUCCESS'
       ) {
         handleCancel()
         messageSuccess('Sửa danh mục thành công')
@@ -225,7 +225,7 @@ const ProductType = () => {
           </Form.Item>
           <Form.Item wrapperCol={{ offset: 20, span: 16 }}>
             <Button type="primary" htmlType="submit">
-                            Submit
+              Submit
             </Button>
           </Form.Item>
         </Form>

@@ -13,7 +13,7 @@ export const signupUser = async (data) => {
 }
 
 export const getDetailsUser = async (id) => {
-  const res = await axiosJWT.get(`${import.meta.env.VITE_BASE_URL_API}/user/getDetailsUser/${id}`
+  const res = await axiosJWT.get(`${import.meta.env.VITE_BASE_URL_API}/user/${id}`
     // ,
     // {
     //     headers: {
@@ -25,7 +25,7 @@ export const getDetailsUser = async (id) => {
 }
 
 export const deleteUser = async (id, data) => {
-  const res = await axiosJWT.delete(`${import.meta.env.VITE_BASE_URL_API}/user/deleteUser/${id}`, data
+  const res = await axiosJWT.delete(`${import.meta.env.VITE_BASE_URL_API}/user/${id}`, data
     // , {
     //     headers: {
     //         token: `Bearer ${access_token}`,
@@ -36,7 +36,7 @@ export const deleteUser = async (id, data) => {
 }
 
 export const getAllUser = async () => {
-  const res = await axiosJWT.get(`${import.meta.env.VITE_BASE_URL_API}/user/getAllUsers`
+  const res = await axiosJWT.get(`${import.meta.env.VITE_BASE_URL_API}/user`
     // , {
     //     headers: {
     //         token: `Bearer ${access_token}`,
@@ -65,7 +65,7 @@ export const logoutUser = async () => {
 }
 
 export const updateUser = async (id, data) => {
-  const res = await axiosJWT.put(`${import.meta.env.VITE_BASE_URL_API}/user/updateUser/${id}`, data
+  const res = await axiosJWT.put(`${import.meta.env.VITE_BASE_URL_API}/user/${id}`, data
     // , {
     //     headers: {
     //         token: `Bearer ${access_token}`,
@@ -76,7 +76,7 @@ export const updateUser = async (id, data) => {
 }
 
 export const deleteManyUser = async (data) => {
-  const res = await axiosJWT.post(`${import.meta.env.VITE_BASE_URL_API}/user/deleteMany`, data
+  const res = await axiosJWT.post(`${import.meta.env.VITE_BASE_URL_API}/user`, data
     // , {
     //     headers: {
     //         token: `Bearer ${access_token}`,

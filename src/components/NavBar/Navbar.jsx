@@ -40,7 +40,7 @@ const Navbar = () => {
 
 
           <NavLink
-            to="/products-type/6564aee73adaf4c11a499a6b"
+            to="/product/type/6564aee73adaf4c11a499a6b"
 
             className="menu-component"
             style={{ textDecoration: 'none' }}
@@ -48,7 +48,7 @@ const Navbar = () => {
             <div className="menu-item-name">iPhone</div>
           </NavLink>
           <NavLink
-            to="/products-type/6564aefd3adaf4c11a499a72"
+            to="/product/type/6564aefd3adaf4c11a499a72"
 
             className="menu-component"
             style={{ textDecoration: 'none' }}
@@ -56,7 +56,7 @@ const Navbar = () => {
             <div className="menu-item-name">iPad</div>
           </NavLink>
           <NavLink
-            to="/products-type/6564af133adaf4c11a499a7c"
+            to="/product/type/6564af133adaf4c11a499a7c"
 
             className="menu-component"
             style={{ textDecoration: 'none' }}
@@ -64,7 +64,7 @@ const Navbar = () => {
             <div className="menu-item-name">Mac</div>
           </NavLink>
           <NavLink
-            to="/products-type/6564af273adaf4c11a499a89"
+            to="/product/type/6564af273adaf4c11a499a89"
 
             className="menu-component"
             style={{ textDecoration: 'none' }}
@@ -72,7 +72,7 @@ const Navbar = () => {
             <div className="menu-item-name">Tai nghe</div>
           </NavLink>
           <NavLink
-            to="/products-type/6564af3f3adaf4c11a499a99"
+            to="/product/type/6564af3f3adaf4c11a499a99"
 
             className="menu-component"
             style={{ textDecoration: 'none' }}
@@ -80,7 +80,7 @@ const Navbar = () => {
             <div className="menu-item-name">Phụ kiện</div>
           </NavLink>
           <NavLink
-            to="/products-type/6564af583adaf4c11a499aac"
+            to="/product/type/6564af583adaf4c11a499aac"
 
             className="menu-component"
             style={{ textDecoration: 'none' }}

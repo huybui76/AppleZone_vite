@@ -5,7 +5,7 @@ const ProductCard = (props) => {
 
 
   return (
-    <NavLink to={`/products/${props.productId}`} className="productCard">
+    <NavLink to={`/product/${props.productId}`} className="productCard">
       <div className="element-container1">
         <img src={props.image[0]} alt="product" className="productImage" />
       </div>

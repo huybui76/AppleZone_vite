@@ -80,7 +80,6 @@
   align-self: center;
   font-size: 16px;
   display: flex;
-  color: #000;
 }
 
 .menu-component::before {

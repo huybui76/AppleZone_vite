@@ -196,7 +196,7 @@ const Cart = () => {
 
                 {order?.orderItems?.map((order) => (
                   <div className="item-container" key={order?.product}>
-                    <NavLink to={`/products/${order?.product}`} style={{ textDecoration:'none' }} >
+                    <NavLink to={`/product/${order?.product}`} style={{ textDecoration: 'none' }} >
 
                       <div className="item__img-name">
                         <div className="item__img-name1">
@@ -227,7 +227,7 @@ const Cart = () => {
 
                       >
                         <button className="minus"
-                          disabled = {order?.amount === 1}
+                          disabled={order?.amount === 1}
                           onClick={() =>
                             handleChangeCount(
                               'decrease',
@@ -253,7 +253,7 @@ const Cart = () => {
                         </div>
                         <button
                           className="plus"
-                          disabled = {order?.amount === order.countInStock}
+                          disabled={order?.amount === order.countInStock}
                           onClick={() =>
                             handleChangeCount(
                               'increase',

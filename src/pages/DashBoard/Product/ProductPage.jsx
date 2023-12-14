@@ -85,7 +85,7 @@ const Product = () => {
   }
 
   const handleDeleteConfirmed = async () => {
-    await axiosClient.delete(`product/deleteProduct/${deletingProductId}`, {
+    await axiosClient.delete(`product/${deletingProductId}`, {
       _id: deletingProductId
     })
 
@@ -104,7 +104,7 @@ const Product = () => {
     const isNameExists = products?.data?.some(
       (item) =>
         item.name.toLowerCase() === values.name.toLowerCase() &&
-                item._id !== editingProductId
+        item._id !== editingProductId
     )
 
     if (isNameExists) {
@@ -117,7 +117,7 @@ const Product = () => {
       setImage([])
       if (
         data?.status === 'OK' &&
-                data?.message === 'Product created successfully'
+        data?.message === 'Product created successfully'
       ) {
         handleCancel()
         messageSuccess(alertMessages.productCreated)
@@ -184,7 +184,7 @@ const Product = () => {
   useEffect(() => {
     const fetchProductTypes = async () => {
       try {
-        const response = await ProductTypeService.getCountProductType()
+        const response = await ProductTypeService.getAllProductType()
         setProductTypes(response.data)
         form.setFieldsValue({
           type: response.data.length > 0 ? response.data[0]._id : null
@@ -336,7 +336,7 @@ const Product = () => {
   const isLoadingProducts = queryProduct.isLoading
 
   const dataTable = products?.data
-  // ?.slice((currentPage - 1) * pageSize, currentPage * pageSize)
+    // ?.slice((currentPage - 1) * pageSize, currentPage * pageSize)
     ?.map((product) => ({
       key: product._id,
       _id: product._id,
@@ -461,7 +461,7 @@ const Product = () => {
 
           <Form.Item wrapperCol={{ offset: 20, span: 16 }}>
             <Button type="primary" htmlType="submit">
-                            Submit
+              Submit
             </Button>
           </Form.Item>
         </Form>
